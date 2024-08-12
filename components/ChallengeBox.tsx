@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: width * 0.80, // 80% of screen width on both web and mobile
     height: height * 0.30, // 50% of screen height on web, 40% on mobile
-    shadowColor: '#123051',
+    shadowColor: '#362148',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     left: 5,
   },
   subtitle: {
-    fontSize: height * 0.020, // Relative font size based on screen width
+    fontSize: height * 0.022, // Relative font size based on screen width
     color: 'white',
     marginBottom: height * 0.03, // 3% of screen height
     textAlign: 'center',
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.015, // 1.5% of screen height
     paddingHorizontal: width * 0.06, // 6% of screen width
     borderRadius: 5,
+    marginTop: height * 0.012,
     alignItems: 'center',
   },
   buttonText: {
