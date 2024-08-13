@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions} from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
+
 const ChallengeBox: React.FC = () => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -15,7 +19,10 @@ const ChallengeBox: React.FC = () => {
         <Text style={styles.subtitle}>
           Supera estos desafíos y empieza a completar las misiones del Planeta Aritmética
         </Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Planet')} // Navega a la pantalla "Another"
+        >
           <Text style={styles.buttonText}>¡ACEPTO EL RETO!</Text>
         </TouchableOpacity>
       </View>
