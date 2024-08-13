@@ -1,30 +1,42 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions} from 'react-native';
+import { View, Text, Pressable, StyleSheet, Platform, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/app/types'; 
 
 const { width, height } = Dimensions.get('window');
 
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Started'>;
 
-const ChallengeBox: React.FC = () => {
+interface ChallengeBoxProps {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  backgroundColor: string;
+}
 
-  const navigation = useNavigation();
+const ChallengeBox: React.FC<ChallengeBoxProps> = ({ title, subtitle, buttonText, backgroundColor }) => {
+  const navigation = useNavigation<NavigationProp>();
 
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
+      <View style={[styles.box, { backgroundColor }]}>
         <Text style={styles.title}>
-          ¡Desafíate!
+          {title}
           <View style={styles.underline} />
         </Text>
         <Text style={styles.subtitle}>
-          Supera estos desafíos y empieza a completar las misiones del Planeta Aritmética
+          {subtitle}
         </Text>
-        <TouchableOpacity
+        <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate('Planet')} // Navega a la pantalla "Another"
+          onPress={() => {
+            console.log('Botón presionado');
+            navigation.navigate('Planet');
+          }}
         >
-          <Text style={styles.buttonText}>¡ACEPTO EL RETO!</Text>
-        </TouchableOpacity>
+          <Text style={styles.buttonText}>{buttonText}</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -37,9 +49,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: width * 0.005, // 0.5% of screen width
     paddingVertical: height * 0.005,  // 0.5% of screen height
+    zIndex: 3
   },
   box: {
-    backgroundColor: '#204D8D',
     padding: height * 0.03, // 3% of screen height
     borderRadius: 10,
     width: width * 0.80, // 80% of screen width on both web and mobile
@@ -79,6 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: height * 0.012,
     alignItems: 'center',
+    zIndex: 10,
   },
   buttonText: {
     fontSize: height * 0.02, // Relative font size based on screen width
@@ -86,6 +99,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
 
 export default ChallengeBox;
