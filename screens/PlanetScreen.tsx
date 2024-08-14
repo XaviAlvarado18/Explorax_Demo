@@ -22,6 +22,7 @@ interface Operation {
   operation: '+' | '-' | '*';
   result: number;
   isCorrect: boolean;
+  possibleAnswers: Array<any>;
 }
 
 const PlanetScreen: React.FC = () => {
@@ -32,9 +33,11 @@ const PlanetScreen: React.FC = () => {
   const [showNextButton, setShowNextButton] = useState(false);
   const [operations, setOperations] = useState<Operation[]>([]);
 
+  
+
   useEffect(() => {
     const operationsData: Operation[] = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 1; i++) {
       const operation = generateOperation();
       operationsData.push(operation);
       // Agrega un console.log aquí para ver cada operación generada
@@ -43,13 +46,17 @@ const PlanetScreen: React.FC = () => {
     // Agrega un console.log aquí para ver el arreglo completo de operaciones generadas
     console.log('Arreglo de operaciones:', operationsData);
     setOperations(operationsData);
+
+
+    
   }, []);
   
 
   const handleAnswerPress = (isCorrect: boolean) => {
-    console.log("Answer");
+    console.log("Answer: ", isCorrect);
     if (isCorrect) {
       if (currentProgress < MAX_PROGRESS) {
+        console.log("currenProgress: ", currentProgress);
         setCurrentProgress((prevProgress: number) => prevProgress + 1);
       }
       setShowNextButton(true); // Mostrar el botón "SIGUIENTE" si la respuesta es correcta
@@ -69,75 +76,77 @@ const PlanetScreen: React.FC = () => {
     );
   };
 
+  
+
   return (
     <ImageBackground
       source={require('./../assets/images/Fondo_RutaIterg.png')}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
-        <Text style={styles.title}>Desafíate</Text>
-        <ProgressBar level={currentProgress} levelLabel={1} maxLevel={MAX_PROGRESS} />
-        <View style={styles.buttonContainer}>
-
-        <AnswerButton
-            content={'75 + 8 = ?'}
-            backgroundColor="#FFFFFF"
-            isOperation={true}
-            correctAnswer={correctAnswer}
-            onPress={() => console.log('Pressed 67')}
-            style={styles.buttonOp}
-            textStyle={styles.textbtnOp}
-        />
-
-        <View style={styles.buttonRow}>
-          <AnswerButton
-            content={84}
-            backgroundColor="#6AB1B5"
-            isOperation={false}
-            correctAnswer={correctAnswer}
-            onPress={() => handleAnswerPress(true)}
-            style={styles.button}
-          />
-          <AnswerButton
-            content={82}
-            backgroundColor="#6AB1B5"
-            isOperation={false}
-            correctAnswer={correctAnswer}
-            onPress={() => handleAnswerPress(false)}
-            style={styles.button}
-          />
-        </View>
-        <View style={styles.buttonRow}>
-          <AnswerButton
-            content={83}
-            backgroundColor="#6AB1B5"
-            isOperation={false}
-            correctAnswer={correctAnswer}
-            onPress={() => handleAnswerPress(false)}
-            style={styles.button}
-          />
-          <AnswerButton
-            content={67}
-            backgroundColor="#6AB1B5"
-            isOperation={false}
-            correctAnswer={correctAnswer}
-            onPress={() => handleAnswerPress(false)}
-            style={styles.button}
-          />
-        </View>
-
-        {showNextButton && (
-          <Pressable style={styles.nextButton} onPress={handleNextPress}>
-            <Text style={styles.nextButtonText}>SIGUIENTE</Text>
-          </Pressable>
-        )}
-
-
-      </View>
-
+      <Text style={styles.title}>Desafíate</Text>
+      <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
+  
+      {operations.map((operation, index) => {
+        // Divide el array en dos partes
+        const firstHalf = operation.possibleAnswers.slice(0, 2);
+        const secondHalf = operation.possibleAnswers.slice(2, 4);
+  
+        return (
+          <View key={index} style={styles.buttonContainer}>
+            <AnswerButton
+              content={`${operation.num1} ${operation.operation} ${operation.num2} = ?`}
+              backgroundColor="#FFFFFF"
+              isOperation={true}
+              correctAnswer={operation.result}
+              onPress={() => console.log('Operacion Pressed')}
+              style={styles.buttonOp}
+              textStyle={styles.textbtnOp}
+            />
+  
+            {/* Primera fila de botones */}
+            <View style={styles.buttonRow}>
+              {firstHalf.map((answer, i) => (
+                <AnswerButton
+                  key={i}
+                  content={answer.answer}
+                  backgroundColor="#6AB1B5"
+                  isOperation={false}
+                  correctAnswer={operation.result}
+                  onPress={() => handleAnswerPress(answer.isCorrect)}
+                  style={styles.button}
+                />
+              ))}
+            </View>
+  
+            {/* Segunda fila de botones */}
+            <View style={styles.buttonRow}>
+              {secondHalf.map((answer, i) => (
+                <AnswerButton
+                  key={i + 2} // Ajusta la clave para que sea única
+                  content={answer.answer}
+                  backgroundColor="#6AB1B5"
+                  isOperation={false}
+                  correctAnswer={operation.result}
+                  onPress={() => handleAnswerPress(answer.isCorrect)}
+                  style={styles.button}
+                />
+              ))}
+            </View>
+  
+            {/* Botón "SIGUIENTE" dentro del contenedor */}
+            {showNextButton && (
+              <Pressable style={styles.nextButton} onPress={handleNextPress}>
+                <Text style={styles.nextButtonText}>SIGUIENTE</Text>
+              </Pressable>
+            )}
+          </View>
+        );
+      })}
     </ImageBackground>
   );
-};
+  
+}
 
 const styles = StyleSheet.create({
   container: {
