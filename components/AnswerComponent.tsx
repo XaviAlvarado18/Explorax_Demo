@@ -9,6 +9,7 @@ interface AnswerButtonProps {
     onPress: (isCorrect: boolean) => void; // Modificar la firma para pasar el resultado
     style?: ViewStyle;
     textStyle?: TextStyle;
+    disabled?: boolean;
 }
 
 const AnswerButton: React.FC<AnswerButtonProps> = ({
@@ -18,7 +19,8 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
     correctAnswer,
     onPress,
     style,
-    textStyle
+    textStyle,
+    disabled
 }) => {
 
     const [isCorrect, setIsCorrect] = useState<null | boolean>(null);
@@ -45,15 +47,15 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
   };
 
   return (
-    <TouchableOpacity
-      style={[styles.button, { backgroundColor: buttonColor }, style]}
-      onPress={handlePress}
-      disabled={isOperation}
-    >
-      <Text style={[styles.buttonText, textStyle]}>
-        {isOperation ? `${content}` : content}
-      </Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+          style={[styles.button, { backgroundColor: buttonColor }, style]}
+          onPress={handlePress}
+          disabled={disabled || isOperation} // Desactivar el botón si disabled es true
+      >
+          <Text style={[styles.buttonText, textStyle]}>
+              {isOperation ? `${content}` : content}
+          </Text>
+      </TouchableOpacity>
   );
 };
 

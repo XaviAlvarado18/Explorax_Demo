@@ -4,17 +4,33 @@ import { Text, View } from '@/components/Themed';
 import ChallengeBox from '@/components/ChallengeBox';
 import AnimationExample from '@/components/Animation';
 import ImageComponent from '@/components/ImageComponent';
-
+import CoinCounter from '@/components/CoinsCount';
+import BottomLogo from '@/components/BottomLogo';
 
 const { width, height } = Dimensions.get('window');
 
 export default function StartedScreen() {
+
+  const [coinCount, setCoinCount] = React.useState('00000');
+
   return (
     <ImageBackground
-      source={require('./../assets/images/Fondo_RutaIterg.png')}
+      source={require('@/assets/images/Fondo_RutaIterg.png')}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
+      <View style={styles.topContainer}>
+      <ImageComponent
+          source={require('@/assets/images/PlanetaAritmetica.png')}
+          style={styles.PlanetAritmetica}
+          resizeMode="contain"
+        />
+
+      <CoinCounter coinCount={coinCount} />
+
+        {/* Aquí puedes agregar más imágenes si lo deseas */}
+      </View>
+
 
       <View style={styles.container}>
 
@@ -34,17 +50,7 @@ export default function StartedScreen() {
             />
         </View>
 
-        <ImageComponent
-          source={require('./../assets/images/Circulo-morado-1.png')}
-          style={styles.Circle_Purple_1}
-          resizeMode="contain"
-        />
-
-        <ImageComponent
-            source={require('./../assets/images/Circulo-morado-3.png')}
-            style={styles.Circle_Purple_2}
-            resizeMode="contain"
-        />
+        <BottomLogo/>
 
       </View>
     </ImageBackground>
@@ -68,6 +74,26 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 20,
       fontWeight: 'bold',
+    },
+    topContainer: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      padding: 10,
+      flexDirection: 'row', // Para alinear múltiples imágenes horizontalmente
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      backgroundColor: 'transparent', 
+    },
+    PlanetAritmetica: {
+      width: '20%', // Ajusta esto según lo que necesites
+      height: undefined,
+      aspectRatio: 1, // Mantiene la proporción de la imagen
+      maxWidth: 50, // Controla el tamaño máximo en pantallas grandes
+      maxHeight: 50, // Controla el tamaño máximo en pantallas grandes
+      margin: width*0.002,
+      pointerEvents: 'none',
     },
     separator: {
       marginVertical: 30,

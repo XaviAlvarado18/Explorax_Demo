@@ -1,14 +1,18 @@
 
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet, ImageBackground, Dimensions, Pressable} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Dimensions, Pressable, Platform} from 'react-native';
 import AnswerButton from '@/components/AnswerComponent';
 import ProgressBar from '@/components/ProgressBar';
-
+import ImageComponent from '@/components/ImageComponent';
+import CoinCounter from '@/components/CoinsCount';
+import BottomLogo from '@/components/BottomLogo';
+import SplashScreen from '@/components/SplashScreen';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/app/types'; 
 import { useCurrentProgress } from '@/context/CurrentProgressProvider';
 import generateOperation from '@/constants/operations'
+
 
 const MAX_PROGRESS = 10;
 const { width, height } = Dimensions.get('window');
@@ -32,8 +36,8 @@ const PlanetScreen: React.FC = () => {
   const { currentProgress, setCurrentProgress } = useCurrentProgress();
   const [showNextButton, setShowNextButton] = useState(false);
   const [operations, setOperations] = useState<Operation[]>([]);
-
-  
+  const [coinCount, setCoinCount] = React.useState('00000');
+  const [showTransition, setShowTransition] = useState(false);
 
   useEffect(() => {
     const operationsData: Operation[] = [];
@@ -65,17 +69,33 @@ const PlanetScreen: React.FC = () => {
     }   
   }
 
-  const handleNextPress = () => {
-    setShowNextButton(false); // Ocultar el botón "SIGUIENTE" al hacer clic
-    // Navegar a la misma pantalla y limpiar el estado
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'Planet' }],
-      })
-    );
+  const handleTransitionFinish = () => {
+    navigation.navigate('Score');
   };
 
+  const handleNextPress = () => {
+    setShowNextButton(false); // Ocultar el botón "SIGUIENTE" al hacer clic
+  
+    if (currentProgress >= MAX_PROGRESS) {
+      // Navegar a la pantalla de Score si el progreso es máximo
+      setShowTransition(true);
+      console.log("Entra? ");
+      //navigation.navigate('Score');
+    } else {
+      // De lo contrario, reiniciar el estado y continuar
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Planet' }],
+        })
+      );
+    }
+  };
+  
+  if (showTransition) {
+    console.log("Entra");
+    return <SplashScreen onFinish={handleTransitionFinish} />;
+  }
   
 
   return (
@@ -84,6 +104,20 @@ const PlanetScreen: React.FC = () => {
       style={styles.backgroundImage}
       resizeMode="cover"
     >
+      <View style={styles.topContainer}>
+        <ImageComponent
+            source={require('@/assets/images/PlanetaAritmetica.png')}
+            style={styles.PlanetAritmetica}
+            resizeMode="contain"
+          />
+
+        <CoinCounter coinCount={coinCount} />
+
+        {/* Aquí puedes agregar más imágenes si lo deseas */}
+      </View>
+
+      <View style={styles.spacer} />
+
       <Text style={styles.title}>Desafíate</Text>
       <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
   
@@ -103,6 +137,8 @@ const PlanetScreen: React.FC = () => {
               style={styles.buttonOp}
               textStyle={styles.textbtnOp}
             />
+
+            <View style={styles.spacer} />
   
             {/* Primera fila de botones */}
             <View style={styles.buttonRow}>
@@ -115,6 +151,7 @@ const PlanetScreen: React.FC = () => {
                   correctAnswer={operation.result}
                   onPress={() => handleAnswerPress(answer.isCorrect)}
                   style={styles.button}
+                  disabled={showNextButton} 
                 />
               ))}
             </View>
@@ -130,6 +167,7 @@ const PlanetScreen: React.FC = () => {
                   correctAnswer={operation.result}
                   onPress={() => handleAnswerPress(answer.isCorrect)}
                   style={styles.button}
+                  disabled={showNextButton} 
                 />
               ))}
             </View>
@@ -143,6 +181,9 @@ const PlanetScreen: React.FC = () => {
           </View>
         );
       })}
+
+      <BottomLogo/>
+
     </ImageBackground>
   );
   
@@ -160,6 +201,28 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
   },
+  topContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    flexDirection: 'row', // Para alinear múltiples imágenes horizontalmente
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+  PlanetAritmetica: {
+    width: '20%', // Ajusta esto según lo que necesites
+    height: undefined,
+    aspectRatio: 1, // Mantiene la proporción de la imagen
+    maxWidth: 50, // Controla el tamaño máximo en pantallas grandes
+    maxHeight: 50, // Controla el tamaño máximo en pantallas grandes
+    margin: width*0.002,
+    pointerEvents: 'none',
+  },
+  spacer: {
+    height: height*0.10, // Ajusta la altura del espaciador según tus necesidades
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -171,6 +234,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    marginTop: height*0.024,
   },
   buttonRow: {
     flexDirection: 'row',
@@ -192,7 +256,7 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     width: buttonWidth /1.2,
-    height: height * 0.07,
+    height: undefined,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',

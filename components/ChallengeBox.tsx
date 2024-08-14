@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, Pressable, StyleSheet, Platform, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/app/types'; 
+import SplashScreen from './SplashScreen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,6 +18,21 @@ interface ChallengeBoxProps {
 
 const ChallengeBox: React.FC<ChallengeBoxProps> = ({ title, subtitle, buttonText, backgroundColor }) => {
   const navigation = useNavigation<NavigationProp>();
+  const [showTransition, setShowTransition] = useState(false);
+
+  const handlePress = () => {
+    setShowTransition(true);
+    console.log("Entra");
+  };
+
+  const handleTransitionFinish = () => {
+    navigation.navigate('Planet');
+  };
+
+  if (showTransition) {
+    console.log("Entra");
+    return <SplashScreen onFinish={handleTransitionFinish} />;
+  }
 
   return (
     <View style={styles.container}>
@@ -30,10 +46,7 @@ const ChallengeBox: React.FC<ChallengeBoxProps> = ({ title, subtitle, buttonText
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => {
-            console.log('Botón presionado');
-            navigation.navigate('Planet');
-          }}
+          onPress={handlePress}
         >
           <Text style={styles.buttonText}>{buttonText}</Text>
         </Pressable>

@@ -2,4 +2,5 @@
 export type RootStackParamList = {
     Started: undefined;
     Planet: undefined;
+    Score: undefined;
   };  
