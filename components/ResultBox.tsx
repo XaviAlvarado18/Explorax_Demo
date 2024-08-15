@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/app/types'; 
 import SplashScreen from './SplashScreen';
+import ScoreCard from './ScoreCard';
 
 const { width, height } = Dimensions.get('window');
 
@@ -40,6 +41,32 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
           {title}
           <View style={styles.underline} />
         </Text>
+
+        <View style={styles.scorecards}>
+
+          <ScoreCard 
+            boxImage={require('@/assets/images/box_conteo_preguntas.png')}
+            starImage={require('@/assets/images/estrella_preguntas.png')}
+            number={20}
+            text="Preguntas"
+          />
+
+          <ScoreCard 
+            boxImage={require('@/assets/images/box_conteo_preguntas.png')}
+            starImage={require('@/assets/images/estrella_correctas.png')}
+            number={10}
+            text="Correctas"
+          />
+
+          <ScoreCard 
+            boxImage={require('@/assets/images/box_conteo_preguntas.png')}
+            starImage={require('@/assets/images/estrella_incorrectas.png')}
+            number={10}
+            text="Incorrectas"
+          />
+
+        </View>
+
         <Pressable
           style={styles.button}
           onPress={handlePress}
@@ -75,7 +102,8 @@ const styles = StyleSheet.create({
     fontSize: height * 0.040, // Relative font size based on screen width
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: height * 0.01, // 1% of screen height
+    marginTop: height * 0.03,
+    marginBottom: height * 0.04, // 1% of screen height
     textAlign: 'center',
     position: 'relative',
   },
@@ -93,12 +121,19 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.03, // 3% of screen height
     textAlign: 'center',
   },
+  scorecards: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: width * -0.06,
+  },
   button: {
     backgroundColor: 'white',
     paddingVertical: height * 0.015, // 1.5% of screen height
     paddingHorizontal: width * 0.06, // 6% of screen width
     borderRadius: 5,
-    marginTop: height * 0.012,
+    marginTop: height * 0.112,
     alignItems: 'center',
     zIndex: 10,
   },

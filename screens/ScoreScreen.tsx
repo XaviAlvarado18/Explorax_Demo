@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     },
     AnimationContainer: {
       transform: [
-        { translateX: width * -0.1 }, // Trasladar en el eje X
-        { translateY: height * -0.23 },
+        { translateX: width * 0.1 }, // Trasladar en el eje X
+        { translateY: height * -0.05 },
        ],
       // Ajusta este valor para cambiar el ancho del ChallengeBox
       backgroundColor: 'transparent', // Asegura que el componente se posicione de manera absoluta en relación con el contenedor
