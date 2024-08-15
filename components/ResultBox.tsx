@@ -11,12 +11,11 @@ type NavigationProp = StackNavigationProp<RootStackParamList, 'Started'>;
 
 interface ChallengeBoxProps {
   title: string;
-  subtitle: string;
   buttonText: string;
   backgroundColor: string;
 }
 
-const ResultBox: React.FC<ChallengeBoxProps> = ({ title, subtitle, buttonText, backgroundColor }) => {
+const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor }) => {
   const navigation = useNavigation<NavigationProp>();
   const [showTransition, setShowTransition] = useState(false);
 
@@ -41,9 +40,6 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, subtitle, buttonText, b
           {title}
           <View style={styles.underline} />
         </Text>
-        <Text style={styles.subtitle}>
-          {subtitle}
-        </Text>
         <Pressable
           style={styles.button}
           onPress={handlePress}
@@ -67,8 +63,8 @@ const styles = StyleSheet.create({
   box: {
     padding: height * 0.03, // 3% of screen height
     borderRadius: 10,
-    width: width * 0.80, // 80% of screen width on both web and mobile
-    height: height * 0.30, // 50% of screen height on web, 40% on mobile
+    width: width * 0.90, // 80% of screen width on both web and mobile
+    height: height * 0.46, // 50% of screen height on web, 40% on mobile
     shadowColor: '#362148',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
