@@ -29,5 +29,8 @@ export default function generateOperation() {
     ...wrongAnswers.map(answer => ({ answer, isCorrect: false })),
   ];
 
-  return { num1, num2, operation, result, isCorrect: true, possibleAnswers };
+  // Mezclar el array de respuestas posibles aleatoriamente
+  const shuffledAnswers = possibleAnswers.sort(() => Math.random() - 0.5);
+
+  return { num1, num2, operation, result, isCorrect: true, shuffledAnswers };
 }

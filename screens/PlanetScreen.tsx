@@ -26,7 +26,7 @@ interface Operation {
   operation: '+' | '-' | '*';
   result: number;
   isCorrect: boolean;
-  possibleAnswers: Array<any>;
+  shuffledAnswers: Array<any>;
 }
 
 const PlanetScreen: React.FC = () => {
@@ -123,8 +123,8 @@ const PlanetScreen: React.FC = () => {
   
       {operations.map((operation, index) => {
         // Divide el array en dos partes
-        const firstHalf = operation.possibleAnswers.slice(0, 2);
-        const secondHalf = operation.possibleAnswers.slice(2, 4);
+        const firstHalf = operation.shuffledAnswers.slice(0, 2);
+        const secondHalf = operation.shuffledAnswers.slice(2, 4);
   
         return (
           <View key={index} style={styles.buttonContainer}>
