@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Dimensions, ImageBackground, Platform, View} from 'react-native';
 import ImageComponent from '@/components/ImageComponent';
 import CoinCounter from '@/components/CoinsCount';
+import AnimationExample from '@/components/Animation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,6 +28,14 @@ export default function ScoreScreen() {
         <CoinCounter coinCount={coinCount} />
 
         {/* Aquí puedes agregar más imágenes si lo deseas */}
+      </View>
+
+
+      <View style={styles.AnimationContainer}>
+          <AnimationExample
+            source={require('@/assets/animations/D_fire.json')}
+            loop={true} // Ruta del archivo JSON
+          />
       </View>
 
       <View style={styles.ScoreBoxContainer}>
@@ -73,6 +82,17 @@ const styles = StyleSheet.create({
     },
     spacer: {
       height: height*-0.10, // Ajusta la altura del espaciador según tus necesidades
+    },
+    AnimationContainer: {
+      transform: [
+        { translateX: width * -0.1 }, // Trasladar en el eje X
+        { translateY: height * -0.23 },
+       ],
+      // Ajusta este valor para cambiar el ancho del ChallengeBox
+      backgroundColor: 'transparent', // Asegura que el componente se posicione de manera absoluta en relación con el contenedor
+      position: 'absolute',
+      overflow: 'hidden',
+  
     },
     ScoreBoxContainer: {
       // Ajusta este valor para cambiar el ancho del ChallengeBox
