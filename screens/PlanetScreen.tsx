@@ -79,9 +79,10 @@ const PlanetScreen: React.FC = () => {
     if (currentProgress >= MAX_PROGRESS) {
       // Navegar a la pantalla de Score si el progreso es máximo
       setShowTransition(true);
-      console.log("Entra? ");
+      //console.log("Entra? ");
       //navigation.navigate('Score');
     } else {
+      //setShowTransition(true);
       // De lo contrario, reiniciar el estado y continuar
       navigation.dispatch(
         CommonActions.reset({
@@ -93,7 +94,7 @@ const PlanetScreen: React.FC = () => {
   };
   
   if (showTransition) {
-    console.log("Entra");
+    //console.log("Entra");
     return <SplashScreen onFinish={handleTransitionFinish} />;
   }
   

@@ -2,13 +2,18 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const AnimationExample: React.FC = () => {
+interface AnimationExampleProps {
+  source: any; 
+  loop?: boolean; 
+}
+
+const AnimationExample: React.FC<AnimationExampleProps> = ({ source, loop = false }) => {
   return (
     <View style={styles.container}>
       <LottieView
-        source={require('./../assets/animations/D_fire.json')} // Ruta del archivo JSON
+        source={source}
         autoPlay
-        loop
+        loop={loop}
         style={styles.animation}
       />
     </View>
@@ -23,8 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   animation: {
-    width: 1, // Ajusta el tamaño según sea necesario
-    height: 1,
+    width: 100, // Ajusta el tamaño según sea necesario
+    height: 100,
     backgroundColor: 'transparent',
   },
 });

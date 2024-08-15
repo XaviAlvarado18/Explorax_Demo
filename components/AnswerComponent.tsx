@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import AnimationExample from './Animation';
 
 interface AnswerButtonProps {
     content: string | number;
@@ -24,6 +25,8 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
 }) => {
 
     const [isCorrect, setIsCorrect] = useState<null | boolean>(null);
+    const [showAnimation, setShowAnimation] = useState(false);
+
     // Determinar el color del botón basado en isOperation e isCorrect
     const buttonColor = isOperation
   ? backgroundColor
@@ -38,6 +41,8 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
     // Calcular si la respuesta es correcta
     const correct = content === correctAnswer;
     setIsCorrect(correct);
+    setShowAnimation(correct);
+
     // Asegurarse de que onPress es una función y manejar el evento de clic
     if (typeof onPress === 'function' && !isOperation) {
 
@@ -55,6 +60,14 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
           <Text style={[styles.buttonText, textStyle]}>
               {isOperation ? `${content}` : content}
           </Text>
+
+          {showAnimation && (
+          <AnimationExample
+            source={require('@/assets/animations/Estrellitas.json')} // Ruta de la animación de éxito
+            loop={false}
+            />
+          )}
+
       </TouchableOpacity>
   );
 };

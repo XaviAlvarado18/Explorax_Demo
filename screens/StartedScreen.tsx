@@ -39,7 +39,10 @@ export default function StartedScreen() {
         */}
                 
         <View style={styles.AnimationContainer}>
-          <AnimationExample></AnimationExample>
+          <AnimationExample
+            source={require('@/assets/animations/D_fire.json')}
+            loop={true} // Ruta del archivo JSON
+          />
         </View>
         <View style={styles.challengeBoxContainer}>
             <ChallengeBox
