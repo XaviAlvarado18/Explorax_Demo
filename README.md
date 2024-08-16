@@ -46,6 +46,13 @@ npx expo start --ios
 
 # Para iniciar la aplicación en formato móvil (android)
 npx expo start --android
+
+# Para iniciar usando npm
+npm run start
+
+# Para iniciar usando yarn
+yarn start
+
 ```
 
 ## Características
