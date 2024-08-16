@@ -37,7 +37,7 @@ const PlanetScreen: React.FC = () => {
   const { currentProgress, setCurrentProgress } = useCurrentProgress();
   const [showNextButton, setShowNextButton] = useState(false);
   const [operations, setOperations] = useState<Operation[]>([]);
-  const [coinCount, setCoinCount] = React.useState('00000');
+  const [coinCount, setCoinCount] = React.useState(0);
   const [showTransition, setShowTransition] = useState(false);
 
   // Estado para llevar la cuenta de preguntas, correctas e incorrectas
@@ -79,7 +79,7 @@ const PlanetScreen: React.FC = () => {
 
       if (currentProgress < MAX_PROGRESS) {
         console.log("currenProgress: ", currentProgress);
-        //setCurrentProgress((prevProgress: number) => prevProgress + 1);
+        setCurrentProgress((prevProgress: number) => prevProgress + 1);
       }
 
       //console.log("Incorrectas: ", incorrectAnswers);

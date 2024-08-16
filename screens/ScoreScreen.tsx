@@ -1,5 +1,5 @@
 import ResultBox from '@/components/ResultBox';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Dimensions, ImageBackground, Platform, View} from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native'; 
 import ImageComponent from '@/components/ImageComponent';
@@ -17,9 +17,20 @@ export default function ScoreScreen() {
 
     const route = useRoute<ScoreScreenRouteProp>();
     const { totalQuestions, correctAnswers, incorrectAnswers } = route.params;
+    const [totalCoins, setTotalCoins] = useState(0);
 
-    const [coinCount, setCoinCount] = React.useState('00000');
+    
 
+    //const [coinCount, setCoinCount] = useState('00000');
+
+    
+
+    // Función para manejar el cálculo de monedas
+    const handleTotalCoins = (calculatedCoins: React.SetStateAction<number>) => {
+      setTotalCoins(calculatedCoins);
+    };
+
+    
     return (
         <ImageBackground
           source={require('@/assets/images/Fondo_RutaIterg.png')}
@@ -34,7 +45,7 @@ export default function ScoreScreen() {
             resizeMode="contain"
           />
 
-        <CoinCounter coinCount={coinCount} />
+        <CoinCounter coinCount={totalCoins} />
 
         {/* Aquí puedes agregar más imágenes si lo deseas */}
       </View>
@@ -56,6 +67,7 @@ export default function ScoreScreen() {
               totalQuestions={totalQuestions}
               correctAnswers={correctAnswers}
               incorrectAnswers={incorrectAnswers}
+              onCalculateCoins={handleTotalCoins} 
             ></ResultBox>
 
       </View>

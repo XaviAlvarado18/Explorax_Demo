@@ -1,15 +1,46 @@
 // CoinCounter.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Text, StyleSheet, Dimensions} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+
 
 const { width, height } = Dimensions.get('window');
 
 // Define la interfaz para las propiedades del componente
 interface CoinCounterProps {
-  coinCount: string; // Especifica que coinCount es de tipo string
+  coinCount: number; // Especifica que coinCount es de tipo string
 }
 
 const CoinCounter: React.FC<CoinCounterProps> = ({ coinCount }) => {
+
+  // Animation
+  const [animatedNumber, setAnimatedNumber] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(true);
+
+  useEffect(() => {
+    const duration = 900; // Duration of the animation in milliseconds
+    const endValue = coinCount;
+    let startValue = 0;
+    const step = (timestamp: number) => {
+      if (!startValue) startValue = timestamp;
+      const progress = timestamp - startValue;
+      const newNumber = Math.min(Math.floor((progress / duration) * endValue), endValue);
+      setAnimatedNumber(newNumber);
+      if (newNumber < endValue) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }, [coinCount]);
+
+  const handleAnimationEnd = () => {
+    setShowAnimation(false);
+  };
+
+  const formatNumber = (number: number) => {
+    return number.toString().padStart(4, '0');
+  };
+
   return (
     <View style={styles.coinContainer}>
       <Image
@@ -17,7 +48,13 @@ const CoinCounter: React.FC<CoinCounterProps> = ({ coinCount }) => {
         style={styles.Moneda}
         resizeMode="contain"
       />
-      <Text style={styles.coinCounter}>{coinCount}</Text>
+      <Animatable.Text
+            style={styles.coinCounter}
+            animation="fadeIn"
+            duration={1000}
+          >
+            {formatNumber(animatedNumber)}
+          </Animatable.Text>
     </View>
   );
 };

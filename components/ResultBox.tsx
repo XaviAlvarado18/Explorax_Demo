@@ -23,9 +23,10 @@ interface ChallengeBoxProps {
   totalQuestions: number;
   correctAnswers: number;
   incorrectAnswers: number;
+  onCalculateCoins: (coins: number) => void;
 }
 
-const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor, totalQuestions, correctAnswers, incorrectAnswers}) => {
+const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor, totalQuestions, correctAnswers, incorrectAnswers,  onCalculateCoins}) => {
   const navigation = useNavigation<NavigationProp>();
   const [showTransition, setShowTransition] = useState(false);
   const [coins, setCoins] = useState(0);
@@ -40,7 +41,12 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
 
 
   
-  const totalCoins = calculateTotalCoins(totalQuestions, correctAnswers, incorrectAnswers);
+  // Usa useEffect para calcular y enviar las monedas al componente padre
+  useEffect(() => {
+    const totalCoins = calculateTotalCoins(totalQuestions, correctAnswers, incorrectAnswers);
+    setCoins(totalCoins);
+    onCalculateCoins(totalCoins); // Llama a la función pasada por el padre
+  }, [totalQuestions, correctAnswers, incorrectAnswers, onCalculateCoins]);
 
 
   const handlePress = () => {
@@ -94,7 +100,7 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
         <CoinScoreCard 
           boxImage={require('@/assets/images/box_conteomonedas.png')}
           coinImage={require('@/assets/images/moneda.png')}
-          number={totalCoins}
+          number={coins}
           text="Monedas obtenidas"
         />
 
