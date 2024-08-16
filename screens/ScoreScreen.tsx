@@ -7,6 +7,8 @@ import CoinCounter from '@/components/CoinsCount';
 import AnimationExample from '@/components/Animation';
 import { RootStackParamList } from '@/app/types';
 import CoinAnimation from '@/components/CoinAnimation';
+import ProgressBar from '@/components/ProgressBar';
+import { useCurrentProgress } from '@/context/CurrentProgressProvider';
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,6 +20,7 @@ export default function ScoreScreen() {
     const route = useRoute<ScoreScreenRouteProp>();
     const { totalQuestions, correctAnswers, incorrectAnswers } = route.params;
     const [totalCoins, setTotalCoins] = useState(0);
+    const { currentProgress, setCurrentProgress } = useCurrentProgress();
 
     
 
@@ -57,6 +60,8 @@ export default function ScoreScreen() {
             loop={true} // Ruta del archivo JSON
           />
       </View>
+
+      <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
 
       <View style={styles.ScoreBoxContainer}>
 

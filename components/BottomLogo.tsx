@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     bottom: '5%',
     left: '1%',
     zIndex: -1,
+    pointerEvents: 'none'
   },
   circlesContainer: {
     position: 'absolute',
@@ -58,14 +59,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   darkBlueCircle: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#0e4c71',
     bottom: '-175%',
     zIndex: 1,
+    pointerEvents: 'none'
   },
   lightBlueCircle: {
-    backgroundColor: '#87CEFA',
-    bottom: '-170%',
+    backgroundColor: '#108abd',
+    bottom: '-173%',
     zIndex: 0,
+    pointerEvents: 'none'
   },
   logo: {
     width: '40%',
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '0%',
     zIndex: 3,
+    pointerEvents: 'none'
   },
 });
 

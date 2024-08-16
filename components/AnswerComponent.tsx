@@ -62,7 +62,7 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
   };
 
   // Determinar si el botón es la respuesta correcta y no ha sido seleccionado
-  const shouldShowCheck = isCorrectAnswer && !isSelected && !isCorrect === false;
+  const shouldShowCheck = isCorrectAnswer && !isSelected === false;
 
   return (
       <TouchableOpacity

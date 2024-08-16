@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   coin: {
     width: width * 0.169,
     height: height * 0.086,
-    marginRight: width * -0.14,
+    marginRight: '-15%',
     resizeMode: 'contain',
     zIndex: 1,
   },

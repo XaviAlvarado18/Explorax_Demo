@@ -61,29 +61,29 @@ const CoinCounter: React.FC<CoinCounterProps> = ({ coinCount }) => {
 
 const styles = StyleSheet.create({
   coinContainer: {
-    flexDirection: 'row', // Alinea la imagen de la moneda y el contador horizontalmente
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start', // Alinea los elementos al inicio del contenedor
+    paddingHorizontal: 10, // Añade un poco de padding horizontal
   },
   Moneda: {
-    width: '20%', // Ajusta esto según lo que necesites
-    height: undefined,
-    aspectRatio: 1, // Mantiene la proporción de la imagen
-    margin: width*0.002,
-    marginRight: -width*0.03,
-    pointerEvents: 'none',
+    width: width * 0.04, // Ajusta este valor según necesites
+    height: width * 0.04, // Mantiene la moneda cuadrada
+    marginRight: -width * 0.02, // Espacio entre la moneda y el contador
     zIndex: 1,
   },
   coinCounter: {
-    backgroundColor: '#1F2858', // Fondo azul
-    color: '#FFFFFF', // Texto blanco
-    paddingVertical: height*0.002,
-    paddingHorizontal: 20,
-    borderRadius: 10, // Bordes redondeados
-    fontSize: width*0.04, // Tamaño del texto
+    backgroundColor: '#1F2858',
+    color: '#FFFFFF',
+    paddingVertical: height * 0.001,
+    paddingHorizontal: width * 0.04,
+    borderRadius: 20,
+    fontSize: width * 0.04,
     fontWeight: 'bold',
     textAlign: 'center',
     zIndex: 0,
   },
 });
+
 
 export default CoinCounter;
