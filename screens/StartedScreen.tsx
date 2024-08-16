@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Dimensions, ImageBackground, Platform} from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { StyleSheet, Dimensions, ImageBackground, Platform, Text, View} from 'react-native';
 import ChallengeBox from '@/components/ChallengeBox';
 import AnimationExample from '@/components/Animation';
 import ImageComponent from '@/components/ImageComponent';
