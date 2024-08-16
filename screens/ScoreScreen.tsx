@@ -1,6 +1,6 @@
 import ResultBox from '@/components/ResultBox';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Dimensions, ImageBackground, Platform, View} from 'react-native';
+import { StyleSheet, Dimensions, ImageBackground, Platform, View, Text} from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native'; 
 import ImageComponent from '@/components/ImageComponent';
 import CoinCounter from '@/components/CoinsCount';
@@ -9,6 +9,7 @@ import { RootStackParamList } from '@/app/types';
 import CoinAnimation from '@/components/CoinAnimation';
 import ProgressBar from '@/components/ProgressBar';
 import { useCurrentProgress } from '@/context/CurrentProgressProvider';
+import BottomLogo from '@/components/BottomLogo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -61,7 +62,11 @@ export default function ScoreScreen() {
           />
       </View>
 
-      <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
+      <Text style={styles.title}>Desafíate</Text>
+      
+      <View style={styles.progressBarContainer}>
+        <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
+      </View>
 
       <View style={styles.ScoreBoxContainer}>
 
@@ -76,6 +81,8 @@ export default function ScoreScreen() {
             ></ResultBox>
 
       </View>
+
+      <BottomLogo/>
 
         </ImageBackground>
     )
@@ -101,6 +108,20 @@ const styles = StyleSheet.create({
       alignItems: 'flex-start',
       justifyContent: 'space-between',
     },
+    title: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: 'white',
+      textAlign: 'center',
+      top: '12%',
+    },
+    progressBarContainer: {
+      position: 'absolute',
+      width: '90%', // Ancho del contenedor del ProgressBar como porcentaje
+      height: '10%', // Altura del contenedor del ProgressBar como porcentaje
+      top: '12%', // Mueve el ProgressBar al 50% del alto de la pantalla
+      justifyContent: 'center', // Centra el ProgressBar dentro del contenedor
+    },
     PlanetAritmetica: {
       width: '20%', // Ajusta esto según lo que necesites
       height: undefined,
@@ -114,10 +135,8 @@ const styles = StyleSheet.create({
       height: height*-0.10, // Ajusta la altura del espaciador según tus necesidades
     },
     AnimationContainer: {
-      transform: [
-        { translateX: width * 0.1 }, // Trasladar en el eje X
-        { translateY: height * -0.0 },
-       ],
+      top: '-3%',
+      right: '7%',
       // Ajusta este valor para cambiar el ancho del ChallengeBox
       backgroundColor: 'transparent', // Asegura que el componente se posicione de manera absoluta en relación con el contenedor
       position: 'absolute',
