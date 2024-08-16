@@ -33,7 +33,6 @@ interface Operation {
 const PlanetScreen: React.FC = () => {
 
   const navigation = useNavigation<NavigationProp>();
-  const correctAnswer = 84;
   const { currentProgress, setCurrentProgress } = useCurrentProgress();
   const [showNextButton, setShowNextButton] = useState(false);
   const [operations, setOperations] = useState<Operation[]>([]);
@@ -158,6 +157,7 @@ const PlanetScreen: React.FC = () => {
               backgroundColor="#FFFFFF"
               isOperation={true}
               correctAnswer={operation.result}
+              isCorrectAnswer={false}
               onPress={() => console.log('Operacion Pressed')}
               style={styles.buttonOp}
               textStyle={styles.textbtnOp}
@@ -174,6 +174,7 @@ const PlanetScreen: React.FC = () => {
                   backgroundColor="#6AB1B5"
                   isOperation={false}
                   correctAnswer={operation.result}
+                  isCorrectAnswer={answer.isCorrect}
                   onPress={() => handleAnswerPress(answer.isCorrect)}
                   style={styles.button}
                   disabled={showNextButton} 
@@ -190,6 +191,7 @@ const PlanetScreen: React.FC = () => {
                   backgroundColor="#6AB1B5"
                   isOperation={false}
                   correctAnswer={operation.result}
+                  isCorrectAnswer={answer.isCorrect}
                   onPress={() => handleAnswerPress(answer.isCorrect)}
                   style={styles.button}
                   disabled={showNextButton} 
