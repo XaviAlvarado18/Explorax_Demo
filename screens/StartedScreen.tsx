@@ -80,8 +80,11 @@ export default function StartedScreen() {
                 onButtonClick={handlePress}
             />
         </View>
+        
 
         <BottomLogo/>
+
+      
 
       </View>
     </ImageBackground>
@@ -131,10 +134,15 @@ const styles = StyleSheet.create({
       height: 1,
       width: '80%',
     },
+    circlesBox: {
+      flex: 1,
+      overflow: 'hidden',
+      zIndex: 3, // Oculta la parte que se sale del contenedor
+    },
     Circle_Purple_1: {
       position: 'absolute',
-      width: Platform.OS === 'web' ? width: width * 0.5, // Cambia la escala según la plataforma
-      height: Platform.OS === 'web' ? height * 1.2 : height * 0.5, // Cambia la escala según la plataforma
+      width: Platform.OS === 'web' ? width *0.95: width * 0.5, // Cambia la escala según la plataforma
+      height: Platform.OS === 'web' ? height : height * 0.5, // Cambia la escala según la plataforma
       margin: 10,
       transform: [
         { translateY: Platform.OS === 'web' ? height * 0.40 : height * 0.2 }, // Ajusta según la plataforma
@@ -143,8 +151,8 @@ const styles = StyleSheet.create({
     },
     Circle_Purple_2: {
       position: 'absolute',
-      width: Platform.OS === 'web' ? width: width * 0.5, // Cambia la escala según la plataforma
-      height: Platform.OS === 'web' ? height * 1.1 : height * 0.5, // Cambia la escala según la plataforma
+      width: Platform.OS === 'web' ? width * 0.95: width * 0.5, // Cambia la escala según la plataforma
+      height: Platform.OS === 'web' ? height : height * 0.5, // Cambia la escala según la plataforma
       margin: 10,
       transform: [
         { translateY: Platform.OS === 'web' ? height * 0.45 : height * 0.3 }, // Ajusta según la plataforma
