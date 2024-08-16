@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#003366', // Color de fondo oscuro
-    zIndex: 1,
+    zIndex: 3,
   },
   darkCircle: {
     position: 'absolute',

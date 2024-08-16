@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Dimensions, ImageBackground, Platform} from 'react-native';
 import { Text, View } from '@/components/Themed';
 import ChallengeBox from '@/components/ChallengeBox';
@@ -6,12 +6,42 @@ import AnimationExample from '@/components/Animation';
 import ImageComponent from '@/components/ImageComponent';
 import CoinCounter from '@/components/CoinsCount';
 import BottomLogo from '@/components/BottomLogo';
+import SplashScreen from '@/components/SplashScreen';
+import { RootStackParamList } from '@/app/types'; 
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from 'expo-router';
+
 
 const { width, height } = Dimensions.get('window');
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Started'>;
+
 
 export default function StartedScreen() {
 
-  const [coinCount, setCoinCount] = React.useState('00000');
+  const [coinCount, setCoinCount] = useState(0);
+  const [showTransition, setShowTransition] = useState(false);
+
+  const [showAnimation, setShowAnimation] = useState(true); // Estado para controlar la visibilidad de la animación
+
+  
+  const navigation = useNavigation<NavigationProp>();
+
+
+  // Función para manejar el clic en el botón del ChallengeBox
+  const handlePress = () => {
+    setShowTransition(true);
+    setShowAnimation(false); // Oculta la animación al hacer clic
+    console.log("Entra");
+  };
+
+  const handleTransitionFinish = () => {
+    navigation.navigate('Planet');
+  };
+
+  if (showTransition) {
+    console.log("Entra");
+    return <SplashScreen onFinish={handleTransitionFinish} />;
+  }
 
   return (
     <ImageBackground
@@ -32,24 +62,22 @@ export default function StartedScreen() {
       </View>
 
 
-      <View style={styles.container}>
-
-        {/* 
-        <EditScreenInfo path="app/(tabs)/index.tsx" />
-        */}
-                
-        <View style={styles.AnimationContainer}>
-          <AnimationExample
-            source={require('@/assets/animations/D_fire.json')}
-            loop={true} // Ruta del archivo JSON
-          />
-        </View>
+      <View style={styles.container}>                
+        {showAnimation && (
+            <View style={styles.AnimationContainer}>
+              <AnimationExample
+                source={require('@/assets/animations/D_fire.json')}
+                loop={true} // Ruta del archivo JSON
+              />
+            </View>
+          )}
         <View style={styles.challengeBoxContainer}>
             <ChallengeBox
                 title="¡Desafíate!"
                 subtitle="Supera estos desafíos y empieza a completar las misiones del Planeta Aritmética"
                 buttonText="¡ACEPTO EL RETO!"
                 backgroundColor="#204D8D"
+                onButtonClick={handlePress}
             />
         </View>
 
