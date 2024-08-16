@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/app/types'; 
 import SplashScreen from './SplashScreen';
 import ScoreCard from './ScoreCard';
+import CoinScoreCard from './CoinScoreCard';
 
 const { width, height } = Dimensions.get('window');
 
@@ -67,6 +68,13 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
 
         </View>
 
+        <CoinScoreCard 
+          boxImage={require('@/assets/images/box_conteomonedas.png')}
+          coinImage={require('@/assets/images/moneda.png')}
+          number={85}
+          text="Monedas obtenidas"
+        />
+
         <Pressable
           style={styles.button}
           onPress={handlePress}
@@ -103,7 +111,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginTop: height * 0.03,
-    marginBottom: height * 0.04, // 1% of screen height
+    marginBottom: height * 0.04,
     textAlign: 'center',
     position: 'relative',
   },
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: height * 0.022, // Relative font size based on screen width
     color: 'white',
-    marginBottom: height * 0.03, // 3% of screen height
+    marginBottom: height * 0.03 , // 3% of screen height
     textAlign: 'center',
   },
   scorecards: {
@@ -133,7 +141,7 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.015, // 1.5% of screen height
     paddingHorizontal: width * 0.06, // 6% of screen width
     borderRadius: 5,
-    marginTop: height * 0.112,
+    marginTop: height * 0.024,
     alignItems: 'center',
     zIndex: 10,
   },
