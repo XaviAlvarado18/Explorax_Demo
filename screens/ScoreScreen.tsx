@@ -17,12 +17,6 @@ export default function ScoreScreen() {
     const route = useRoute<ScoreScreenRouteProp>();
     const { totalQuestions, correctAnswers, incorrectAnswers } = route.params;
 
-    console.log('Parámetros recibidos:', {
-      totalQuestions,
-      correctAnswers,
-      incorrectAnswers,
-    });
-
     const [coinCount, setCoinCount] = React.useState('00000');
 
     return (
@@ -57,7 +51,9 @@ export default function ScoreScreen() {
             title="¡Buen trabajo!"
             buttonText="INICIAR MISION #1"
             backgroundColor="#204D8D"
-            
+            totalQuestions={totalQuestions}
+            correctAnswers={correctAnswers}
+            incorrectAnswers={incorrectAnswers}
           ></ResultBox>
       </View>
 

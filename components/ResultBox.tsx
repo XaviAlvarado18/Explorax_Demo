@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Pressable, StyleSheet, Platform, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -11,13 +11,19 @@ const { width, height } = Dimensions.get('window');
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'Started'>;
 
+const COINS_PER_CORRECT_ANSWER = 10; // Monedas por respuesta correcta
+const PENALTY_PER_INCORRECT_ANSWER = -3; // Penalización por respuesta incorrecta
+
 interface ChallengeBoxProps {
   title: string;
   buttonText: string;
   backgroundColor: string;
+  totalQuestions: number;
+  correctAnswers: number;
+  incorrectAnswers: number;
 }
 
-const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor }) => {
+const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor, totalQuestions, correctAnswers, incorrectAnswers}) => {
   const navigation = useNavigation<NavigationProp>();
   const [showTransition, setShowTransition] = useState(false);
 
@@ -25,6 +31,22 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
     setShowTransition(true);
     console.log("Entra");
   };
+
+
+
+const calculateTotalCoins = (totalQuestions: number, correctAnswers: number, incorrectAnswers: number) => {
+  // Calcular las monedas obtenidas
+  const totalCoins = (correctAnswers * COINS_PER_CORRECT_ANSWER) + (incorrectAnswers * PENALTY_PER_INCORRECT_ANSWER);
+
+  // Asegurarse de que el total de monedas no sea negativo
+  return Math.max(totalCoins, 0);
+};
+
+  console.log('Parámetros recibidos (resultbox):', {
+    totalQuestions,
+    correctAnswers,
+    incorrectAnswers,
+  });
 
   const handleTransitionFinish = () => {
     navigation.navigate('Planet');
@@ -48,21 +70,21 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
           <ScoreCard 
             boxImage={require('@/assets/images/box_conteo_preguntas.png')}
             starImage={require('@/assets/images/estrella_preguntas.png')}
-            number={20}
+            number={totalQuestions}
             text="Preguntas"
           />
 
           <ScoreCard 
             boxImage={require('@/assets/images/box_conteo_preguntas.png')}
             starImage={require('@/assets/images/estrella_correctas.png')}
-            number={10}
+            number={correctAnswers}
             text="Correctas"
           />
 
           <ScoreCard 
             boxImage={require('@/assets/images/box_conteo_preguntas.png')}
             starImage={require('@/assets/images/estrella_incorrectas.png')}
-            number={10}
+            number={incorrectAnswers}
             text="Incorrectas"
           />
 
@@ -71,7 +93,7 @@ const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundC
         <CoinScoreCard 
           boxImage={require('@/assets/images/box_conteomonedas.png')}
           coinImage={require('@/assets/images/moneda.png')}
-          number={85}
+          number={calculateTotalCoins(totalQuestions, correctAnswers, incorrectAnswers)}
           text="Monedas obtenidas"
         />
 

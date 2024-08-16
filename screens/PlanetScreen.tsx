@@ -15,7 +15,7 @@ import { useScore } from '@/context/ScoreContext';
 import generateOperation from '@/constants/operations'
 
 
-const MAX_PROGRESS = 10;
+const MAX_PROGRESS = 11;
 const { width, height } = Dimensions.get('window');
 
 const buttonWidth = (width - 60) / 2;
