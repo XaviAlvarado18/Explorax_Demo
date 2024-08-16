@@ -83,6 +83,9 @@ La Demo va a contar con una pantalla de inicio, la cuál nos desafía a completa
 
 ![Inicio Móvil](assets/images/scoreMovil.png)
 
+(Funcionamiento completo)
+
+![Funcionamiento](assets/functional/Functional.gif)
 
 ## Infraestructura
 
