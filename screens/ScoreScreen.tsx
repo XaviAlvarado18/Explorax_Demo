@@ -25,10 +25,6 @@ export default function ScoreScreen() {
 
     
 
-    //const [coinCount, setCoinCount] = useState('00000');
-
-    
-
     // Función para manejar el cálculo de monedas
     const handleTotalCoins = (calculatedCoins: React.SetStateAction<number>) => {
       setTotalCoins(calculatedCoins);
@@ -65,7 +61,7 @@ export default function ScoreScreen() {
       <Text style={styles.title}>Desafíate</Text>
       
       <View style={styles.progressBarContainer}>
-        <ProgressBar level={currentProgress} levelLabel={1} maxLevel={10} />
+        <ProgressBar level={currentProgress} levelLabel={10} maxLevel={10} />
       </View>
 
       <View style={styles.ScoreBoxContainer}>
@@ -142,6 +138,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       overflow: 'hidden',
       zIndex: 3,
+      pointerEvents: 'none',
     },
     ScoreBoxContainer: {
       // Ajusta este valor para cambiar el ancho del ChallengeBox

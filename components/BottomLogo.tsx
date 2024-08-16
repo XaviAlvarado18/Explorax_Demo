@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '30%', // Ajusta este valor según necesites
     alignItems: 'center',
+    pointerEvents: 'none'
   },
   character: {
     width: '50%',
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     overflow: 'hidden',
+    pointerEvents: 'none'
   },
   circle: {
     width: '100%',
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 1000,
     borderTopRightRadius: 1000,
     position: 'absolute',
+    pointerEvents: 'none'
   },
   darkBlueCircle: {
     backgroundColor: '#0e4c71',
