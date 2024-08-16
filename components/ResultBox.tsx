@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     padding: height * 0.03, // 3% of screen height
     borderRadius: 10,
     width: width * 0.90, // 80% of screen width on both web and mobile
-    height: height * 0.46, // 50% of screen height on web, 40% on mobile
+    height: height * 0.50, // 50% of screen height on web, 40% on mobile
     shadowColor: '#362148',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.015, // 1.5% of screen height
     paddingHorizontal: width * 0.06, // 6% of screen width
     borderRadius: 5,
-    marginTop: height * 0.024,
+    marginTop: height * 0.014,
     alignItems: 'center',
     zIndex: 10,
   },

@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageSourcePropType } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageSourcePropType, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 interface CoinScoreCardProps {
   boxImage: ImageSourcePropType;
@@ -14,8 +16,10 @@ const CoinScoreCard: React.FC<CoinScoreCardProps> = ({ boxImage, coinImage, numb
       <Text style={styles.topText}>{text}</Text>
       <View style={styles.scoreContainer}>
         <Image source={coinImage} style={styles.coin} />
-        <Image source={boxImage} style={styles.box} />
-        <Text style={styles.number}>{number}</Text>
+        <View style={styles.boxContainer}>
+          <Image source={boxImage} style={styles.box} />
+          <Text style={styles.number}>{number}</Text>
+        </View>
       </View>
     </View>
   );
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   topText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 5,
@@ -37,18 +41,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coin: {
-    width: 50,
-    height: 50,
-    marginRight: -25,
+    width: width * 0.169,
+    height: height * 0.086,
+    marginRight: width * -0.14,
+    resizeMode: 'contain',
     zIndex: 1,
   },
+  boxContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
   box: {
-    width: 150,
-    height: 50,
+    width: width * 0.4,
+    height: height * 0.086,
+    resizeMode: 'contain',
   },
   number: {
     position: 'absolute',
-    right: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#000',
