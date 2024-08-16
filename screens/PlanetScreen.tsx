@@ -49,10 +49,10 @@ const PlanetScreen: React.FC = () => {
       const operation = generateOperation();
       operationsData.push(operation);
       // Agrega un console.log aquí para ver cada operación generada
-      //console.log(`Operación ${i+1}:`, operation);
+      console.log(`Operación ${i+1}:`, operation);
     }
     // Agrega un console.log aquí para ver el arreglo completo de operaciones generadas
-    //console.log('Arreglo de operaciones:', operationsData);
+    console.log('Arreglo de operaciones:', operationsData);
     setOperations(operationsData);    
   }, []);
   
@@ -64,11 +64,11 @@ const PlanetScreen: React.FC = () => {
     setTotalQuestions((prevTotal: number) => prevTotal + 1);
 
     // Actualizar el número de preguntas
-    console.log("Preguntas: ", totalQuestions);
+    //console.log("Preguntas: ", totalQuestions);
 
     if (isCorrect) {
       setCorrectAnswers((prevCorrect: number) => prevCorrect + 1);
-      console.log("Correctas: ", correctAnswers);
+      //console.log("Correctas: ", correctAnswers);
 
       if (currentProgress < MAX_PROGRESS) {
         console.log("currenProgress: ", currentProgress);
@@ -79,10 +79,10 @@ const PlanetScreen: React.FC = () => {
 
       if (currentProgress < MAX_PROGRESS) {
         console.log("currenProgress: ", currentProgress);
-        setCurrentProgress((prevProgress: number) => prevProgress + 1);
+        //setCurrentProgress((prevProgress: number) => prevProgress + 1);
       }
 
-      console.log("Incorrectas: ", incorrectAnswers);
+      //console.log("Incorrectas: ", incorrectAnswers);
       setIncorrectAnswers((prevIncorrect: number) => prevIncorrect + 1);
       setShowNextButton(true); // Ocultar el botón si la respuesta no es correcta
     }   

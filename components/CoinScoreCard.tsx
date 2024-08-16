@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ImageSourcePropType, Dimensions } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import CoinAnimation from './CoinAnimation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,6 +17,7 @@ interface CoinScoreCardProps {
 const CoinScoreCard: React.FC<CoinScoreCardProps> = ({ boxImage, coinImage, number, text }) => {
 
   const [animatedNumber, setAnimatedNumber] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(true);
 
   useEffect(() => {
     const duration = 900; // Duration of the animation in milliseconds
@@ -33,8 +35,13 @@ const CoinScoreCard: React.FC<CoinScoreCardProps> = ({ boxImage, coinImage, numb
     requestAnimationFrame(step);
   }, [number]);
 
+  const handleAnimationEnd = () => {
+    setShowAnimation(false);
+  };
+
   return (
     <View style={styles.container}>
+
       <Text style={styles.topText}>{text}</Text>
       <View style={styles.scoreContainer}>
         <Image source={coinImage} style={styles.coin} />

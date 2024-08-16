@@ -26,11 +26,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
+    pointerEvents: 'none',
   },
   animation: {
     width: 100, // Ajusta el tamaño según sea necesario
     height: 100,
     backgroundColor: 'transparent',
+    pointerEvents: 'none',
   },
 });
 

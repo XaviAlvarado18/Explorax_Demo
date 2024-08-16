@@ -6,6 +6,7 @@ import ImageComponent from '@/components/ImageComponent';
 import CoinCounter from '@/components/CoinsCount';
 import AnimationExample from '@/components/Animation';
 import { RootStackParamList } from '@/app/types';
+import CoinAnimation from '@/components/CoinAnimation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -47,14 +48,16 @@ export default function ScoreScreen() {
       </View>
 
       <View style={styles.ScoreBoxContainer}>
-          <ResultBox
-            title="¡Buen trabajo!"
-            buttonText="INICIAR MISION #1"
-            backgroundColor="#204D8D"
-            totalQuestions={totalQuestions}
-            correctAnswers={correctAnswers}
-            incorrectAnswers={incorrectAnswers}
-          ></ResultBox>
+
+            <ResultBox
+              title="¡Buen trabajo!"
+              buttonText="INICIAR MISION #1"
+              backgroundColor="#204D8D"
+              totalQuestions={totalQuestions}
+              correctAnswers={correctAnswers}
+              incorrectAnswers={incorrectAnswers}
+            ></ResultBox>
+
       </View>
 
         </ImageBackground>

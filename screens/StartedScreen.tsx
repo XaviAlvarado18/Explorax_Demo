@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       overflow: 'hidden',
       zIndex: 3,
+      pointerEvents: 'none',
     },
   
   });

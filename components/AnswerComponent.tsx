@@ -36,6 +36,7 @@ const AnswerButton: React.FC<AnswerButtonProps> = ({
       ? '#6FBA3B'
       : '#E6333C';
 
+
     // Asegurarse de que onPress es una función
   const handlePress = () => {
     // Calcular si la respuesta es correcta
