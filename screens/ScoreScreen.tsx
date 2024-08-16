@@ -1,13 +1,27 @@
 import ResultBox from '@/components/ResultBox';
 import React from 'react';
 import { StyleSheet, Dimensions, ImageBackground, Platform, View} from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native'; 
 import ImageComponent from '@/components/ImageComponent';
 import CoinCounter from '@/components/CoinsCount';
 import AnimationExample from '@/components/Animation';
+import { RootStackParamList } from '@/app/types';
 
 const { width, height } = Dimensions.get('window');
 
+// Define el tipo para los parámetros de la ruta
+type ScoreScreenRouteProp = RouteProp<RootStackParamList, 'Score'>;
+
 export default function ScoreScreen() {
+
+    const route = useRoute<ScoreScreenRouteProp>();
+    const { totalQuestions, correctAnswers, incorrectAnswers } = route.params;
+
+    console.log('Parámetros recibidos:', {
+      totalQuestions,
+      correctAnswers,
+      incorrectAnswers,
+    });
 
     const [coinCount, setCoinCount] = React.useState('00000');
 

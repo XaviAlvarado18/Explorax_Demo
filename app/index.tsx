@@ -6,6 +6,7 @@ import PlanetScreen from '@/screens/PlanetScreen';
 import ScoreScreen from '@/screens/ScoreScreen';
 import { RootStackParamList } from './types'; // Asegúrate de ajustar la ruta según tu estructura de archivos
 import { CurrentProgressProvider } from '@/context/CurrentProgressProvider';
+import { ScoreProvider } from '@/context/ScoreContext';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -21,11 +22,13 @@ function Navigator() {
 
 function App() {
   return (
-    <CurrentProgressProvider>
-      <NavigationContainer independent={true}>
-        <Navigator />
-      </NavigationContainer>
-    </CurrentProgressProvider>
+    <ScoreProvider>
+      <CurrentProgressProvider>
+        <NavigationContainer independent={true}>
+          <Navigator />
+        </NavigationContainer>
+      </CurrentProgressProvider>
+    </ScoreProvider>
   );
 }
 

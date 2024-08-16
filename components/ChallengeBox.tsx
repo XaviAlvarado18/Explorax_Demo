@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.015, // 1.5% of screen height
     paddingHorizontal: width * 0.06, // 6% of screen width
     borderRadius: 5,
-    marginTop: height * 0.012,
+    marginTop: height * -0.002,
     alignItems: 'center',
     zIndex: 10,
   },

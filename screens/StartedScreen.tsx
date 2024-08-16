@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
       // Ajusta este valor para cambiar el ancho del ChallengeBox
       transform: [
         { translateX: width * -0.010 },
-        { translateY: height * -0.05},
+        { translateY: height * -0.054},
       ],
       backgroundColor: 'transparent',
       position: 'absolute',
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent', // Asegura que el componente se posicione de manera absoluta en relación con el contenedor
       position: 'absolute',
       overflow: 'hidden',
-  
+      zIndex: 3,
     },
   
   });

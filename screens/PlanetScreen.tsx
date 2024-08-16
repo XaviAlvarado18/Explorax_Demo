@@ -11,10 +11,11 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/app/types'; 
 import { useCurrentProgress } from '@/context/CurrentProgressProvider';
+import { useScore } from '@/context/ScoreContext';
 import generateOperation from '@/constants/operations'
 
 
-const MAX_PROGRESS = 2;
+const MAX_PROGRESS = 10;
 const { width, height } = Dimensions.get('window');
 
 const buttonWidth = (width - 60) / 2;
@@ -39,38 +40,61 @@ const PlanetScreen: React.FC = () => {
   const [coinCount, setCoinCount] = React.useState('00000');
   const [showTransition, setShowTransition] = useState(false);
 
+  // Estado para llevar la cuenta de preguntas, correctas e incorrectas
+  const { totalQuestions, correctAnswers, incorrectAnswers, setTotalQuestions, setCorrectAnswers, setIncorrectAnswers } = useScore();
+
   useEffect(() => {
     const operationsData: Operation[] = [];
     for (let i = 0; i < 1; i++) {
       const operation = generateOperation();
       operationsData.push(operation);
       // Agrega un console.log aquí para ver cada operación generada
-      console.log(`Operación ${i+1}:`, operation);
+      //console.log(`Operación ${i+1}:`, operation);
     }
     // Agrega un console.log aquí para ver el arreglo completo de operaciones generadas
-    console.log('Arreglo de operaciones:', operationsData);
-    setOperations(operationsData);
-
-
-    
+    //console.log('Arreglo de operaciones:', operationsData);
+    setOperations(operationsData);    
   }, []);
   
 
   const handleAnswerPress = (isCorrect: boolean) => {
-    console.log("Answer: ", isCorrect);
+    //console.log("Answer: ", isCorrect);
+
+    // Actualizar el número de preguntas
+    setTotalQuestions((prevTotal: number) => prevTotal + 1);
+
+    // Actualizar el número de preguntas
+    console.log("Preguntas: ", totalQuestions);
+
     if (isCorrect) {
+      setCorrectAnswers((prevCorrect: number) => prevCorrect + 1);
+      console.log("Correctas: ", correctAnswers);
+
       if (currentProgress < MAX_PROGRESS) {
         console.log("currenProgress: ", currentProgress);
         setCurrentProgress((prevProgress: number) => prevProgress + 1);
       }
       setShowNextButton(true); // Mostrar el botón "SIGUIENTE" si la respuesta es correcta
     } else {
+
+      if (currentProgress < MAX_PROGRESS) {
+        console.log("currenProgress: ", currentProgress);
+        setCurrentProgress((prevProgress: number) => prevProgress + 1);
+      }
+
+      console.log("Incorrectas: ", incorrectAnswers);
+      setIncorrectAnswers((prevIncorrect: number) => prevIncorrect + 1);
       setShowNextButton(true); // Ocultar el botón si la respuesta no es correcta
     }   
   }
 
   const handleTransitionFinish = () => {
-    navigation.navigate('Score');
+    // Pasar los datos a la pantalla de Score
+    navigation.navigate('Score', {
+      totalQuestions,
+      correctAnswers,
+      incorrectAnswers,
+    });
   };
 
   const handleNextPress = () => {
