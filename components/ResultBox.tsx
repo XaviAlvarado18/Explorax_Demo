@@ -6,6 +6,8 @@ import { RootStackParamList } from '@/app/types';
 import SplashScreen from './SplashScreen';
 import ScoreCard from './ScoreCard';
 import CoinScoreCard from './CoinScoreCard';
+import * as Animatable from 'react-native-animatable';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,27 +28,26 @@ interface ChallengeBoxProps {
 const ResultBox: React.FC<ChallengeBoxProps> = ({ title, buttonText, backgroundColor, totalQuestions, correctAnswers, incorrectAnswers}) => {
   const navigation = useNavigation<NavigationProp>();
   const [showTransition, setShowTransition] = useState(false);
+  const [coins, setCoins] = useState(0);
+
+  const calculateTotalCoins = (totalQuestions: number, correctAnswers: number, incorrectAnswers: number) => {
+    // Calcular las monedas obtenidas
+    const totalCoins = (correctAnswers * COINS_PER_CORRECT_ANSWER) + (incorrectAnswers * PENALTY_PER_INCORRECT_ANSWER);
+  
+    // Asegurarse de que el total de monedas no sea negativo
+    return Math.max(totalCoins, 0);
+  };
+
+
+  
+  const totalCoins = calculateTotalCoins(totalQuestions, correctAnswers, incorrectAnswers);
+
 
   const handlePress = () => {
     setShowTransition(true);
     console.log("Entra");
   };
 
-
-
-const calculateTotalCoins = (totalQuestions: number, correctAnswers: number, incorrectAnswers: number) => {
-  // Calcular las monedas obtenidas
-  const totalCoins = (correctAnswers * COINS_PER_CORRECT_ANSWER) + (incorrectAnswers * PENALTY_PER_INCORRECT_ANSWER);
-
-  // Asegurarse de que el total de monedas no sea negativo
-  return Math.max(totalCoins, 0);
-};
-
-  console.log('Parámetros recibidos (resultbox):', {
-    totalQuestions,
-    correctAnswers,
-    incorrectAnswers,
-  });
 
   const handleTransitionFinish = () => {
     navigation.navigate('Planet');
@@ -93,7 +94,7 @@ const calculateTotalCoins = (totalQuestions: number, correctAnswers: number, inc
         <CoinScoreCard 
           boxImage={require('@/assets/images/box_conteomonedas.png')}
           coinImage={require('@/assets/images/moneda.png')}
-          number={calculateTotalCoins(totalQuestions, correctAnswers, incorrectAnswers)}
+          number={totalCoins}
           text="Monedas obtenidas"
         />
 

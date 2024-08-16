@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ImageSourcePropType, Dimensions } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,7 +11,28 @@ interface CoinScoreCardProps {
   text: string;
 }
 
+
+
 const CoinScoreCard: React.FC<CoinScoreCardProps> = ({ boxImage, coinImage, number, text }) => {
+
+  const [animatedNumber, setAnimatedNumber] = useState(0);
+
+  useEffect(() => {
+    const duration = 900; // Duration of the animation in milliseconds
+    const endValue = number;
+    let startValue = 0;
+    const step = (timestamp: number) => {
+      if (!startValue) startValue = timestamp;
+      const progress = timestamp - startValue;
+      const newNumber = Math.min(Math.floor((progress / duration) * endValue), endValue);
+      setAnimatedNumber(newNumber);
+      if (newNumber < endValue) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  }, [number]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.topText}>{text}</Text>
@@ -18,7 +40,13 @@ const CoinScoreCard: React.FC<CoinScoreCardProps> = ({ boxImage, coinImage, numb
         <Image source={coinImage} style={styles.coin} />
         <View style={styles.boxContainer}>
           <Image source={boxImage} style={styles.box} />
-          <Text style={styles.number}>{number}</Text>
+          <Animatable.Text
+            style={styles.number}
+            animation="fadeIn"
+            duration={1000}
+          >
+            {animatedNumber}
+          </Animatable.Text>
         </View>
       </View>
     </View>
